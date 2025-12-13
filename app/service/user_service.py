@@ -2,7 +2,7 @@ import logging
 from typing import Dict, Any
 from app.exceptions import EmailNotAllowedNameExistsError
 
-logger = logging.getLogger("UserService")
+logger = logging.getLogger(__name__)
 
 class UserService:
     def __init__(self):
