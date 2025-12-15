@@ -21,8 +21,10 @@ class ModelName(str, Enum):
 
 @app.get("/hello/{model_name}")
 def hello(model_name : ModelName,
-          message: str):
-    return {"message": f"Hello {model_name} {message}"}
+          message: str,
+          user_agent: str = Header(None)
+          ):
+    return {"message": f"Hello {model_name} {message} from {user_agent}"}
 
 
 
