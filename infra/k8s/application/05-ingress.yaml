@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: gangwon.local
+    - host: gangwon-inspire12.duckdns.org
       http:
         paths:
           - path: /
