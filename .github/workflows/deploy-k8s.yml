@@ -33,12 +33,24 @@ jobs:
             -t ghcr.io/${{ github.actor }}/$(basename ${{ github.repository }}):latest \
             --push .
 
-      - name: Deploy on K8s
+      - name: Deploy on EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/ubuntu/workspace/deploy/upstage-gangwon-fastapi-lecture/infra/k8s/application
+            set -e
+            
+            cd /home/ubuntu/deploy/upstage-gangwon-fastapi-lecture
+            
+            # 1. 최신 브랜치로 이동
+            git fetch origin
+            git checkout deploy/registry
+            git pull origin deploy/registry
+            
+            # 2. k8s manifest 위치로 이동
+            cd infra/k8s/application
+            
+            # 3. 배포
             kubectl apply -f 04-backend.yaml
